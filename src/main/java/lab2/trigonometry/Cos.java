@@ -1,13 +1,14 @@
 package lab2.trigonometry;
 
 import lab2.Function;
+import lab2.logarithm.Ln;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.sqrt;
 
 public class Cos implements Function {
 
-    private final Sin sin = new Sin();
+    private Sin sin = new Sin();
 
     @Override
     public double of(double x) {
@@ -20,5 +21,9 @@ public class Cos implements Function {
             sign = -1;
         }
         return sqrt(1.0 - sin.of(x) * sin.of(x)) * sign;
+    }
+
+    public void setSin(Sin sin){
+        this.sin = sin;
     }
 }

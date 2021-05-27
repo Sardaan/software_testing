@@ -4,10 +4,18 @@ import lab2.Function;
 
 public class Tan implements Function {
 
-    private final Sin sin = new Sin();
-    private final Cos cos = new Cos();
+    private Sin sin = new Sin();
+    private Cos cos = new Cos();
     @Override
     public double of(double x) {
         return sin.of(x) / cos.of(x);
+    }
+
+    public void setSin(Sin sin){
+        this.sin = sin;
+    }
+
+    public void setCos(Cos cos){
+        this.cos = cos;
     }
 }

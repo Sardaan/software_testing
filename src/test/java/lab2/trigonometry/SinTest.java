@@ -35,9 +35,6 @@ public class SinTest {
 
     @Test
     public void testSin() {
-//        assertEquals(Double.NaN, function.sin(Double.NaN));
-//        assertEquals(Double.NaN, function.sin(Double.NEGATIVE_INFINITY));
-
         assertEquals(0, BigDecimal.valueOf(sin.of(0.0)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue());
         assertEquals(-0.262, BigDecimal.valueOf(sin.of(50.0)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue());
         assertEquals(0.774, BigDecimal.valueOf(sin.of(70.0)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue());

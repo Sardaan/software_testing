@@ -11,6 +11,8 @@ public class Ln implements Function {
     public double of(double x) {
         if (x <= 0 || Double.isNaN(x))
             return Double.NaN;
+        else if (Double.isInfinite(x) && x > 0 )
+            return 0.0;
         double x1 = (x - 1) / (x + 1);
         double current = x1;
         double result = 0.0;

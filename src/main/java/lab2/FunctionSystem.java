@@ -13,15 +13,17 @@ public class FunctionSystem {
 
     public static final double PRECISION = 0.0001;
 
-    private final Sin sin = new Sin();
-    private final Cot cot = new Cot();
-    private final Tan tan = new Tan();
-    private final Sec sec = new Sec();
+    private Sin sin = new Sin();
+    private Cos cos = new Cos();
+    private Cot cot = new Cot();
+    private Tan tan = new Tan();
+    private Sec sec = new Sec();
 
-    private final Log2 log2 = new Log2();
-    private final Log3 log3 = new Log3();
-    private final Log5 log5 = new Log5();
-    private final Log10 log10 = new Log10();
+    private Ln ln = new Ln();
+    private Log2 log2 = new Log2();
+    private Log3 log3 = new Log3();
+    private Log5 log5 = new Log5();
+    private Log10 log10 = new Log10();
 
 
     public double system(double x) {
@@ -33,5 +35,34 @@ public class FunctionSystem {
         return equation;
     }
 
+    public void setSin(Sin sin) {
+        this.sin = sin;
+    }
+    public void setCos(Cos cos) {
+        this.cos = cos;
+    }
+    public void setCot(Cot cot) {
+        this.cot = cot;
+    }
+    public void setTan(Tan tan) {
+        this.tan = tan;
+    }
+    public void setSec(Sec sec) {
+        this.sec = sec;
+    }
+
+    public void setLn(Ln ln) { this.ln = ln; }
+    public void setLog2(Log2 log2) {
+        this.log2 = log2;
+    }
+    public void setLog3(Log3 log3) {
+        this.log3 = log3;
+    }
+    public void setLog5(Log5 log5) {
+        this.log5 = log5;
+    }
+    public void setLog10(Log10 log10) {
+        this.log10 = log10;
+    }
 }
 

@@ -1,5 +1,7 @@
 package lab2;
 
+import lab2.logarithm.*;
+import lab2.trigonometry.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -16,6 +18,23 @@ public class FunctionSystemTest {
     @BeforeAll
     static void init(){
         function = new FunctionSystem();
+    }
+
+    @Test
+    public void FunctionTest() {
+        function.setLog2(Mocks.getLog2Mock());
+        function.setLog3(Mocks.getLog3Mock());
+        function.setLog5(Mocks.getLog5Mock());
+        function.setLog10(Mocks.getLog10Mock());
+        assertEquals(-1.472, BigDecimal.valueOf(function.system(2.3)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue(), DELTA);
+
+        function.setSin(Mocks.getSinMock());
+        function.setCot(Mocks.getCotMock());
+        function.setSec(Mocks.getSecMock());
+        function.setTan(Mocks.getTanMock());
+        assertEquals(0.244, BigDecimal.valueOf(function.system(-1.2)).setScale(3, BigDecimal.ROUND_HALF_UP).doubleValue(), DELTA);
+
+
     }
 
     @Test
