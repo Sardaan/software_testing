@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.concurrent.TimeUnit;
 
@@ -16,12 +17,19 @@ public class CartTest {
     private static WebDriver driver;
     private static StartPage startPage;
     private static Cart cart;
+    private static String driverType;
 
 
     @BeforeAll
     public static void init() {
-        System.setProperty("webdriver.chrome.driver", Configuration.getProperty("chromeDriver"));
-        driver = new ChromeDriver();
+        driverType = Configuration.getProperty("driverType");
+        if (driverType.equals("chrome")){
+            System.setProperty("webdriver.chrome.driver", Configuration.getProperty("chromeDriver"));
+            driver = new ChromeDriver();
+        }else {
+            driver = new FirefoxDriver();
+            System.setProperty("webdriver.firefox.driver", Configuration.getProperty("firefoxDriver"));
+        }
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         driver.get(Configuration.getProperty("startPage"));
