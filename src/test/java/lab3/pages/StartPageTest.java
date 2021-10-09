@@ -1,61 +1,63 @@
 package lab3.pages;
 
-import lab3.Configuration;
-import lab3.pages.StartPage;
+import lab3.exceptions.InvalidPropertiesException;
+import lab3.utils.Configuration;
+import lab3.utils.Constants;
+import lab3.utils.Context;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import static lab3.Util.timeOut;
 
 public class StartPageTest {
-    private static WebDriver driver;
+
     private static StartPage startPage;
-    private static String[] handles;
-    private static String driverType;
+    public Context context;
+    public List<WebDriver> driverList;
 
-    @BeforeAll
-    public static void init() {
-        driverType = Configuration.getProperty("driverType");
-        if (driverType.equals("chrome")){
-            System.setProperty("webdriver.chrome.driver", Configuration.getProperty("chromeDriver"));
-            driver = new ChromeDriver();
-        }else {
-            driver = new FirefoxDriver();
-            System.setProperty("webdriver.firefox.driver", Configuration.getProperty("firefoxDriver"));
+    @BeforeEach
+    public void init() {
+        context = new Context();
+        driverList = new ArrayList<>();
+        try {
+            Configuration.getInstance().reading(context);
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
-        driver.get(Configuration.getProperty("startPage"));
-        startPage = new StartPage(driver);
-        handles = new String[driver.getWindowHandles().size()];
+
+        if (context.getGeckodriver() != null) {
+            System.setProperty(Constants.WEBDRIVER_FIREFOX_DRIVER, context.getGeckodriver());
+            driverList.add(new FirefoxDriver());
+        }
+        if (context.getChromedriver() != null) {
+            System.setProperty(Constants.WEBDRIVER_CHROME_DRIVER, context.getChromedriver());
+            driverList.add(new ChromeDriver());
+        }
+        if (driverList.isEmpty()) throw new InvalidPropertiesException();
+
     }
 
-    @AfterAll
-    public static void close() {
-        driver.quit();
+    @AfterEach
+    public void close() {
+        driverList.forEach(WebDriver::quit);
     }
+
 
     @Test
-    public void internalUrlsCheck() throws InterruptedException {
+    public void startPageLinkCheck() throws InterruptedException {
+        for (int i = 0; i < driverList.size(); i++) {
+            driverList.get(i).manage().window().maximize();
+            driverList.get(i).manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+            driverList.get(i).get(Configuration.getProperty("startPage"));
+            startPage = new StartPage(driverList.get(i));
 
-        startPage.getPricingLink().click();
-        timeOut(2);
-        Assertions.assertTrue(driver.getCurrentUrl().contains("mailchimp.com/pricing/marketing/"));
+            startPage.getPricingLink().click();
+            Assertions.assertTrue(driverList.get(i).getCurrentUrl().contains("mailchimp.com/pricing/marketing/"));
 
-        startPage.getMainPageLink().click();
-        timeOut(2);
-        startPage.getMarketingLink().click();
-        timeOut(2);
-        Assertions.assertTrue(driver.getCurrentUrl().contains("mailchimp.com/marketing-platform/"));
-
-        startPage.getMainPageLink().click();
-        timeOut(2);
-        startPage.getWebsitesLink().click();
-        timeOut(2);
-        Assertions.assertTrue(driver.getCurrentUrl().contains("mailchimp.com/get-your-business-online/"));
-
+        }
     }
 }

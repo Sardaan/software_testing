@@ -9,13 +9,13 @@ public class StartPage {
 
     private WebDriver driver;
 
-    @FindBy(xpath = "/html/body/header/nav/ul/li[3]/a")
+    @FindBy(xpath = "/html/body/header/nav/ul/li[2]/a")
     private WebElement loginLink;
-    @FindBy(xpath = "/html/body/header/nav/ul/li[4]/a")
+    @FindBy(xpath = "/html/body/header/nav/ul/li[3]/a")
     private WebElement signUpLink;
-    @FindBy(xpath = "/html/body/header/nav/div[3]/a[2]")
+    @FindBy(xpath = "/html/body/header/nav/div[2]/a[2]")
     private WebElement pricingLink;
-    @FindBy(xpath = "//*[@id=\"7uIGrWs1EKisliO27moeFY\"]/div/div/div/div[2]/div[2]/a")
+    @FindBy(xpath = "/html/body/main/section[3]/div/div/div/div[2]/div[2]/a")
     private WebElement websitesLink;
     @FindBy(xpath = "/html/body/main/section[4]/div/div/div/div[2]/div[2]/a")
     private WebElement marketingLink;
@@ -50,12 +50,5 @@ public class StartPage {
         return pricingLink;
     }
 
-    public WebElement getWebsitesLink() {
-        return websitesLink;
-    }
-
-    public WebElement getMarketingLink() {
-        return marketingLink;
-    }
 
 }

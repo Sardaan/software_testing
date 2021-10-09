@@ -16,6 +16,19 @@ public class SearchPage {
     private WebElement searchButton;
     @FindBy(xpath = "/html/body/header/div[2]/div[1]/div/div/div/div[1]/h2/a")
     private WebElement resultText;
+    @FindBy(xpath = "/html/body/header/div[2]/div[1]/div/div/section/ul/li[1]/a")
+    private WebElement emailTemplates;
+    @FindBy(xpath = "/html/body/header/div[2]/div[1]/div/div/div/div[1]/h2/a")
+    private WebElement searchResults;
+
+    @FindBy(xpath = "/html/body/header/div[2]/div[1]/div/div/section/ul/li[2]/a")
+    private WebElement newsletter;
+    @FindBy(xpath = "/html/body/header/div[2]/div[1]/div/div/a")
+    private WebElement seeAllResults;
+    @FindBy(xpath = "/html/body/main/div/div[2]/div/div[1]/ul/li[4]/a")
+    private WebElement tutorialsFilter;
+    @FindBy(xpath = "/html/body/main/div/div[2]/div/div[3]/div/div[1]/p/strong[1]")
+    private WebElement result;
 
 
     public SearchPage(WebDriver driver){
@@ -43,4 +56,27 @@ public class SearchPage {
         searchField.sendKeys(text);
     }
 
+    public WebElement getEmailTemplates() {
+        return emailTemplates;
+    }
+
+    public WebElement getSearchResults() {
+        return searchResults;
+    }
+
+    public WebElement getNewsletter() {
+        return newsletter;
+    }
+
+    public WebElement getSeeAllResults() {
+        return seeAllResults;
+    }
+
+    public WebElement getTutorialsFilter() {
+        return tutorialsFilter;
+    }
+
+    public WebElement getResult() {
+        return result;
+    }
 }
